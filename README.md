@@ -8,7 +8,11 @@ words-coffee
 1. Install Node.js
 
 2. Install cofee script
-	npm install -g coffee-script
+```
+npm install -g coffee-script
+```
 
 3. Compile all *.coffee files
-	coffee --compile --output htdocs/js/ src/
+```
+coffee --compile --output htdocs/js/ src/
+```
