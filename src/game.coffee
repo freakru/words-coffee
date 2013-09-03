@@ -38,4 +38,165 @@ Game = (lang) ->
 
     @getLanguage = (callback) ->
         $.getScript "js/game.language.#{@lang}.js", () =>
-          @callback()
+            @callback()
+
+    @completeSetup = () ->
+        log 'play begins'
+    
+        if @isNewGame()
+            $('#modal').modal {keyboard: false}
+        else
+            @populateUser()
+        
+        
+        @localize()
+        @initControls()
+        @drawEmpty()
+        @populateTimer()
+        @addScore 0
+        graphic.updateLevelBar @level, @score, @maxLevel, @nextLevel
+        @updateLevel()
+
+    @localize = () ->
+        $('[data-t]').each () ->
+            key = $(this).attr 'data-t'
+            $(this).text t[key]
+
+
+        $('#showMenu').attr('title', t.menu)
+        $('#new').text(t.snew)
+        $('#scores').text(t.scores) 
+        $('#save').text(t.save)
+        $('#load').text(t.load)
+        $('#username-label').text(t.username)
+        $('#achiev').text(t.achievements)
+
+    @initControls = () ->
+        # TODO: implement
+
+    @initAchievements = () ->
+        @maxAchievScore = 0
+        # TODO: implement
+
+    @initRareLetters = () ->
+        @rareLetters = []
+        @rareLetters.push letter for letter in @lettersWeights when @lettersWeights[letter] == maxLetterWeight
+        
+    @getMainword = () ->
+        mainWordsArr = mainwords[@lang].split(',')
+        
+        mainWordsLen = mainWordsArr.length
+        idx = Math.floor(Math.random() * mainWordsLen)
+        @mainword = mainWordsArr[idx]
+
+    @getLetterWeight = (letter) ->
+        if @lettersWeights == null
+          @fillLettersWeights()
+        
+        return this.lettersWeights[letter]
+
+    @illLettersWeights = () ->
+        # clone  
+        this.lettersWeights = $.extend true, {}, letterFrequency[this.lang]
+        
+        maxPercent = 0
+        for letter in this.lettersWeights
+            rawWeight = this.lettersWeights[letter]
+            if rawWeight > maxPercent
+                maxPercent = rawWeight        
+        
+        for letter in this.lettersWeights
+          rawWeight = this.lettersWeights[letter]
+          weight = rawWeight / maxPercent
+          this.lettersWeights[letter] = maxLetterWeight - Math.ceil(maxLetterWeight * weight) + 1
+
+    @populateUser = () ->
+        $('#user').text "#{t.hallo} #{@userName}"
+  
+  
+    @isPalindrome = (word) ->
+        word.length > 4 && @orrectAnswers.containsWord word.reverse()
+
+    @isAnagram = (word) ->
+        # TODO: implement
+
+    @isExpensive = (word) ->
+        50 <= @getScore word
+
+    @isCorrectWord = (answer) ->
+        # TODO: implement
+
+    @ask = (word) ->
+        # TODO: implement
+
+    @tryAnswer = (word) ->
+        #TODO: implement
+
+    @getScore = (word) ->
+        # TODO: implement
+
+    @addScore = (score) ->
+        # TODO: implement
+
+    @updateLevel = () ->
+        # TODO
+
+    @updateWords = () ->
+        $('#words').text t.words + ': ' + this.correctAnswers.length
+  
+    @nextLevel = () ->
+        #TODO
+
+    @populateTimer = () ->
+        $('#timer').text t.time + ': ' + this.timer.formatTime()
+
+    @setTimer = () ->
+        # TODO
+
+    @checkAchievements = (arg) ->
+        # TODO
+
+    @drawEmpty = () ->
+        # TODO
+
+    @draw = () ->
+        # TODO
+
+    @handleEvents = (e) ->
+        # TODO
+
+    @animateLetters = () ->
+        # TODO
+
+    @error = (message) ->
+        # TODO
+
+    @errorAddWord = (message) ->
+        # TODO
+
+    @addWord = (word) ->
+        # TODO
+
+    @showAchievements = () -> 
+        # TODO
+
+    @showScores = (scores) ->
+        #TODO
+
+    @save = () ->
+        # TODO
+
+    @load = () ->
+        #TODO
+
+    @completeLoad = () ->
+        #TODO
+
+    @reset = () ->
+        #TODO
+
+    @enterUsername = () ->
+        #TODO
+
+    @populateAnswers = () ->
+        #TODO
