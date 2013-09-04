@@ -1,4 +1,4 @@
-Request = () ->
+window.Request = ->
     @get = (data, successCallback) ->
         $.ajax {
             url: 'protected/ajax.php',
@@ -12,3 +12,4 @@ Request = () ->
                 console.error message
                 graphic.message 'Error', message
             }
+    return

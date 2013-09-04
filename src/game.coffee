@@ -1,4 +1,4 @@
-Game = (lang) ->
+window.Game = (lang) ->
     @mainword = ''
     @timer = 0
     @score = 0
@@ -193,10 +193,30 @@ Game = (lang) ->
         #TODO
 
     @reset = () ->
-        #TODO
+        localStorage.setItem 'wordGame', null
+        window.request.get {r: 'user/reset'}, () ->
+            window.location.reload()
 
     @enterUsername = () ->
-        #TODO
+        username = $('#username').val()
+        return false if !username
+
+        window.request.get {r: 'user/enter-username', username: username}, (data) =>
+            if data.success
+                  @userId = data.userId
+                  @userName = data.userName
+                  @getMainword()
+                  @fillLettersWeights()
+                  @initAchievements()
+                  @initRareLetters()
+
+                  @draw()
+                  @populateUser()
+                  @save()
+                  $('#modal').modal('hide')
+                  @setTimer()
+                  return
 
     @populateAnswers = () ->
         #TODO
+    return

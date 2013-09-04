@@ -7,15 +7,7 @@ var mainwords = {'ru':'авантюрист',//,активность,инстр�
 //['доремифасольляси'],
 //['абвгдежзийклмнопрстуфхцчшщыьэюя'],
 
-var maxLetterWeight = 10;
-var minWordLen = 2;
-var minScore = 5;
-var lang = 'en';//navigator.language;
-var debug = true;
 
-var game = new Game(lang);
-var graphic = new Graphic();
-var request = new Request();
 
 function log () {
   return debug && 'console' in window ? console.log.apply(console, arguments) : null;
@@ -123,6 +115,16 @@ var letterFrequency = {
 
 $(function() {
   $('.draggable').draggable();
+  var maxLetterWeight = 10;
+var minWordLen = 2;
+var minScore = 5;
+var lang = 'en';//navigator.language;
+var debug = true;
+
+var game = new Game(lang);
+var graphic = new Graphic();
+var request = new Request();
+
   game.play();
   $('#answer').focus();
 });
