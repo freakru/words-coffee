@@ -36,9 +36,8 @@
       }
     };
     this.getLanguage = function(callback) {
-      var _this = this;
       return $.getScript("js/game.language." + this.lang + ".js", function() {
-        return _this.callback();
+        return typeof callback === "function" ? callback() : void 0;
       });
     };
     this.completeSetup = function() {

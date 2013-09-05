@@ -1,1 +1,1 @@
-coffee --compile --output htdocs/js/ src/
+coffee --compile --output htdocs/js/ htdocs/coffee/

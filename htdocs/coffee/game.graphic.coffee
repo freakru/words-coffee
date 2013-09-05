@@ -1,0 +1,2 @@
+window.Graphic = () ->
+    return

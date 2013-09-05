@@ -3,18 +3,8 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <script src="js/lib/jquery-2.0.2.min.js"></script>
-    <script src="js/lib/jquery-ui.min.js"></script>
-    <script src="js/lib/jquery.jgrowl.min.js"></script>
-    <script src="bootstrap/js/bootstrap.js"></script>
-    <script src="js/game.functions.js"></script>
-
-    <script src="js/game.js"></script>
-    <script src="js/game.achievements.js"></script>
-    <script src="js/game.graphic.js"></script>
-    <script src="js/game.request.js"></script>
-    <script src="js/game.ready.js"></script>
-
+    <script data-main="js/main" src="js/lib/require.min.js"></script>
+    
     <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css" type="text/css"/>
     <link rel="stylesheet" href="css/jquery.jgrowl.css" type="text/css"/>
     <link rel="stylesheet" href="css/main.css" type="text/css" />
