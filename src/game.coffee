@@ -38,7 +38,7 @@ window.Game = (lang) ->
 
     @getLanguage = (callback) ->
         $.getScript "js/game.language.#{@lang}.js", () =>
-            @callback()
+            callback()
 
     @completeSetup = () ->
         log 'play begins'
