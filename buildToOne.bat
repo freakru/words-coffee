@@ -1,0 +1,1 @@
+coffee --join htdocs/js/app.js --compile htdocs/coffee/

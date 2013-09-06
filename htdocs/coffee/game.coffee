@@ -1,4 +1,7 @@
-window.Game = (lang) ->
+window.Game = (lang, graphic, request) ->
+    @graphic = graphic
+    @request = request
+
     @mainword = ''
     @timer = 0
     @score = 0
@@ -27,7 +30,7 @@ window.Game = (lang) ->
         expensiveWords: 0
 
     @isNewGame = () ->
-        strGameState = localStorage.getItem('wordGame');
+        strGameState = localStorage.getItem('wordGame')
         strGameState == null || strGameState == "" || strGameState == 'null'
 
     @play = () ->
@@ -37,8 +40,8 @@ window.Game = (lang) ->
           @load()
 
     @getLanguage = (callback) ->
-        $.getScript "js/game.language.#{@lang}.js", () ->
-            callback?()
+        $.getScript "js/game.language.#{@lang}.js", () =>
+            @[callback]?()
 
     @completeSetup = () ->
         log 'play begins'
@@ -54,7 +57,7 @@ window.Game = (lang) ->
         @drawEmpty()
         @populateTimer()
         @addScore 0
-        graphic.updateLevelBar @level, @score, @maxLevel, @nextLevel
+        @graphic.updateLevelBar @level, @score, @maxLevel, @nextLevel
         @updateLevel()
 
     @localize = () ->
@@ -93,29 +96,29 @@ window.Game = (lang) ->
         if @lettersWeights == null
           @fillLettersWeights()
         
-        return this.lettersWeights[letter]
+        return @lettersWeights[letter]
 
-    @illLettersWeights = () ->
+    @fillLettersWeights = () ->
         # clone  
-        this.lettersWeights = $.extend true, {}, letterFrequency[this.lang]
+        @lettersWeights = $.extend true, {}, letterFrequency[@lang]
         
         maxPercent = 0
-        for letter in this.lettersWeights
-            rawWeight = this.lettersWeights[letter]
+        for letter in @lettersWeights
+            rawWeight = @lettersWeights[letter]
             if rawWeight > maxPercent
                 maxPercent = rawWeight        
         
-        for letter in this.lettersWeights
-          rawWeight = this.lettersWeights[letter]
+        for letter in @lettersWeights
+          rawWeight = @lettersWeights[letter]
           weight = rawWeight / maxPercent
-          this.lettersWeights[letter] = maxLetterWeight - Math.ceil(maxLetterWeight * weight) + 1
+          @lettersWeights[letter] = maxLetterWeight - Math.ceil(maxLetterWeight * weight) + 1
 
     @populateUser = () ->
         $('#user').text "#{t.hallo} #{@userName}"
   
   
     @isPalindrome = (word) ->
-        word.length > 4 && @orrectAnswers.containsWord word.reverse()
+        word.length > 4 && @correctAnswers.containsWord word.reverse()
 
     @isAnagram = (word) ->
         # TODO: implement
@@ -142,13 +145,13 @@ window.Game = (lang) ->
         # TODO
 
     @updateWords = () ->
-        $('#words').text t.words + ': ' + this.correctAnswers.length
+        $('#words').text t.words + ': ' + @correctAnswers.length
   
     @nextLevel = () ->
         #TODO
 
     @populateTimer = () ->
-        $('#timer').text t.time + ': ' + this.timer.formatTime()
+        $('#timer').text t.time + ': ' + @timer.formatTime()
 
     @setTimer = () ->
         # TODO
@@ -187,21 +190,55 @@ window.Game = (lang) ->
         # TODO
 
     @load = () ->
-        #TODO
+        strGameState = localStorage.getItem 'wordGame'
+        gameState = JSON.parse strGameState, (key, value) ->            
+            value = value?.fromIsoDate() if key is 'date'            
+            return value
+        
+        @timer = gameState.timer
+        @level = gameState.level
+        @score = gameState.score
+        @correctAnswers = gameState.correctAnswers
+        @achievScore = gameState.achievScore
+        @achievements = gameState.achievements
+        @used = gameState.used
+        @userId = gameState.userId
+        @userName = gameState.userName
+        @lang = gameState.lang
+        
+        @getLanguage('completeLoad')
 
     @completeLoad = () ->
-        #TODO
+        @localize()
+    
+        @fillLettersWeights()
+        @initRareLetters()
+        @initAchievements()
+        @populateAnswers()
+        @populateUser()
+        
+        @addScore(0)
+        @graphic.updateLevelBar(@level, @score, @maxLevel, @nextLevel)
+        @updateLevel()
+        @updateWords()
+        @initControls()
+        
+        @getMainword()
+        @draw()
+        @populateTimer()
+        @updateWords()
+        @setTimer()
 
-    @reset = () ->
+    @reset = () =>
         localStorage.setItem 'wordGame', null
-        window.request.get {r: 'user/reset'}, () ->
+        @request.get {r: 'user/reset'}, () ->
             window.location.reload()
 
-    @enterUsername = () ->
+    @enterUsername = () =>
         username = $('#username').val()
         return false if !username
 
-        window.request.get {r: 'user/enter-username', username: username}, (data) =>
+        @request.get {r: 'user/enter-username', username: username}, (data) =>
             if data.success
                   @userId = data.userId
                   @userName = data.userName
@@ -218,5 +255,12 @@ window.Game = (lang) ->
                   return
 
     @populateAnswers = () ->
-        #TODO
+        $('#answerContainer table tbody').empty()
+
+        for answer in @correctAnswers
+            $answerRow = "
+            <tr><td>#{answer.w}</td>
+            <td>#{answer.w.length}</td><td>#{answer.s}</td></tr>"
+            $('#answerContainer table tbody').prepend $answerRow
+
     return

@@ -1,0 +1,583 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"use",
+				"userId"
+			],
+			[
+				"te",
+				"text-transform"
+			],
+			[
+				"d",
+				"duration"
+			],
+			[
+				"un",
+				"unknown_word"
+			],
+			[
+				"json",
+				"json_encode"
+			],
+			[
+				"jso",
+				"json_encode"
+			],
+			[
+				"ach",
+				"achievement"
+			],
+			[
+				"t",
+				"theme"
+			],
+			[
+				"ac",
+				"achievement"
+			],
+			[
+				"RE",
+				"_REQUEST"
+			],
+			[
+				"se",
+				"searchForm"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "htdocs/index.php",
+			"settings":
+			{
+				"buffer_size": 5198,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"contents": "<script src=\"js/lib/jquery-2.0.2.min.js\"></script>\n    <script src=\"js/lib/jquery-ui.min.js\"></script>\n    <script src=\"js/lib/jquery.jgrowl.min.js\"></script>\n    <script src=\"bootstrap/js/bootstrap.js\"></script>\n    <script src=\"js/game.functions.js\"></script>\n    <script src=\"js/i.js\"></script>\n\n    <script type=\"text/coffeescript\">\n      for file in ['game', 'game.request']\n        lib = \"coffee/#{file}.coffee\"        \n        console.log lib\n        ->\n          console.log file\n          CoffeeScript.load(file)\n          console.log file\n          return\n    </script>\n\n    <script src=\"js/game.achievements.js\"></script>\n    <script src=\"js/game.graphic.js\"></script>\n    <script src=\"js/game.ready.js\"></script>\n",
+			"settings":
+			{
+				"buffer_size": 725,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "htdocs/coffee/main.coffee",
+			"settings":
+			{
+				"buffer_size": 737,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "htdocs/coffee/game.graphic.coffee",
+			"settings":
+			{
+				"buffer_size": 33,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "htdocs/js/main.js",
+			"settings":
+			{
+				"buffer_size": 1110,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "htdocs/coffee/game.ready.coffee",
+			"settings":
+			{
+				"buffer_size": 289,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "htdocs/js/game.ready.js",
+			"settings":
+			{
+				"buffer_size": 446,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "htdocs/js/game.ready_orig.js",
+			"settings":
+			{
+				"buffer_size": 2126,
+				"line_ending": "Windows"
+			}
+		}
+	],
+	"build_system": "",
+	"command_palette":
+	{
+		"height": 311.0,
+		"selected_items":
+		[
+			[
+				"Package Control: ",
+				"Package Control: Install Package"
+			]
+		],
+		"width": 416.0
+	},
+	"console":
+	{
+		"height": 125.0
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/D/xampp/htdocs/words-coffee/htdocs/js/game.request.js",
+		"/D/xampp/htdocs/words-coffee/htdocs/js/i.js",
+		"/D/xampp/htdocs/words-coffee/htdocs/coffee/i.coffee",
+		"/D/xampp/htdocs/words-coffee/htdocs/js/lib/require.min.js",
+		"/D/xampp/htdocs/words-coffee/src/game.coffee",
+		"/D/xampp/htdocs/words-coffee/htdocs/js/lib/coffee-script.js",
+		"/D/xampp/htdocs/words-coffee/htdocs/js/game.js",
+		"/D/xampp/htdocs/words-coffee/htdocs/s.coffee",
+		"/D/xampp/htdocs/words-coffee/build.bat",
+		"/C/Users/frkk/AppData/Roaming/Sublime Text 2/Packages/User/TodoManager.sublime-settings",
+		"/C/Users/frkk/AppData/Roaming/Sublime Text 2/Packages/Default/Preferences.sublime-settings",
+		"/D/projects/p/jqt_20130829/js/jqtouch.js",
+		"/D/projects/p/jqt_20130829/js/ready.js",
+		"/D/xampp/htdocs/words-coffee/htdocs/js/gameq.js",
+		"/D/xampp/htdocs/words-coffee/src/gameq.coffee",
+		"/D/xampp/htdocs/words-coffee/htdocs/x.html",
+		"/D/projects/words-coffee/index.html",
+		"/D/projects/words-coffee/js/main.js",
+		"/D/projects/words-coffee/js/main.coffee",
+		"/D/xampp/htdocs/words-coffee/.gitignore",
+		"/D/xampp/htdocs/words-coffee/README.md",
+		"/D/projects/habr",
+		"/C/Users/frkk/Downloads/01 - Data.csv",
+		"/D/xampp/htdocs/words/test/qunit/js/achievementsTest.js",
+		"/D/xampp/htdocs/words/test/qunit/test.html",
+		"/D/xampp/htdocs/words/htdocs/js/game.js",
+		"/D/xampp/htdocs/words/htdocs/index.php",
+		"/D/xampp/htdocs/words/htdocs/css/main.css",
+		"/D/xampp/htdocs/words/.gitignore",
+		"/D/xampp/htdocs/words/htdocs/js/game.ready.js",
+		"/D/xampp/htdocs/words/htdocs/js/game.graphic.js",
+		"/D/xampp/htdocs/words/htdocs/js/game.language.ru.js",
+		"/D/xampp/htdocs/words/htdocs/js/game.language.de.js",
+		"/D/xampp/htdocs/words/htdocs/js/game.language.en.js",
+		"/D/xampp/htdocs/words/htdocs/protected/ajax.php",
+		"/D/xampp/htdocs/words/htdocs/protected/App.php",
+		"/D/xampp/htdocs/words/htdocs/protected/DictionaryUtils.php",
+		"/D/projects/word/jGrowl-master/jquery.jgrowl.js",
+		"/D/projects/word/jGrowl-master/jquery.jgrowl.css",
+		"/D/xampp/htdocs/words/htdocs/css/jquery.jgrowl.css",
+		"/D/xampp/htdocs/words/htdocs/js/game.request.js",
+		"/D/xampp/htdocs/words/htdocs/protected/UserUtils.php",
+		"/D/xampp/htdocs/words/htdocs/js/game.achievements.js",
+		"/D/xampp/htdocs/words/htdocs/protected/Database.php",
+		"/E/Reconst/words/test/js/updateLevelBarTest.js",
+		"/E/Reconst/words/htdocs/index.php",
+		"/E/Reconst/words/htdocs/js/game.language.ru.js",
+		"/E/Reconst/words/test/js/formatTimeTest.js",
+		"/D/xampp/apache/conf/httpd.conf",
+		"/E/Reconst/_Andere Dokumente/Personal.txt",
+		"/E/Reconst/words-master/test/test.html",
+		"/E/Reconst/words-master/test/js/updateLevelBarTest.js",
+		"/E/Reconst/words-master/test/qunit/qunit.css",
+		"/E/Reconst/words-master/htdocs/js/game.js",
+		"/E/Reconst/words-master/htdocs/js/game.graphic.js",
+		"/E/Reconst/words-master/htdocs/js/game.ready.js",
+		"/E/Reconst/words-master/htdocs/js/game.functions.js",
+		"/E/Reconst/words-master/htdocs/index.php",
+		"/E/Reconst/words-master/test/qunit/qunit.js",
+		"/E/Reconst/words-master/test/js/formatTimeTest.js",
+		"/E/Reconst/words-master/test/js/tests.js",
+		"/D/projects/panvision/email.txt",
+		"/D/xampp/htdocs/panvision/htdocs/index.html",
+		"/D/xampp/htdocs/panvision/htdocs/testData.php",
+		"/C/Users/frkk/AppData/Local/Temp/_tc/testData.php",
+		"/D/projects/panvision/index.html",
+		"/D/xampp/htdocs/panvision/index.html",
+		"/D/xampp/htdocs/panvision/testData.php"
+	],
+	"find":
+	{
+		"height": 34.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"game.",
+			"\\t",
+			"pageAnimationEnd",
+			"Akademischer Abschluss",
+			"Schulischer Abschluss/Ausbildung",
+			" class=\".*\"",
+			"updatePossibleScore",
+			"getmainw",
+			"#answerl",
+			"answer",
+			".on",
+			"userid",
+			"capit",
+			"ca",
+			"errorAddWord",
+			"t.",
+			"addw",
+			"closer",
+			"beforeclo",
+			"close",
+			"closa",
+			"add-w",
+			"error",
+			"errorAddWord",
+			"message",
+			"enterUsername",
+			"modal",
+			"animateAchievement",
+			"this",
+			".on",
+			".letter",
+			"updatel",
+			"updetele",
+			"levelb",
+			"maxLevel",
+			"fixt",
+			"levelb",
+			"graph",
+			"graf",
+			"tab"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": true,
+		"replace_history":
+		[
+			"@",
+			"    ",
+			"с в/о",
+			"без в/о",
+			"",
+			"self",
+			""
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 5,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "htdocs/index.php",
+					"settings":
+					{
+						"buffer_size": 5198,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								147,
+								147
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"settings":
+					{
+						"buffer_size": 725,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								601,
+								618
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "htdocs/coffee/main.coffee",
+					"settings":
+					{
+						"buffer_size": 737,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								644,
+								644
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/CoffeeScript/CoffeeScript.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "htdocs/coffee/game.graphic.coffee",
+					"settings":
+					{
+						"buffer_size": 33,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								33,
+								33
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/CoffeeScript/CoffeeScript.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "htdocs/js/main.js",
+					"settings":
+					{
+						"buffer_size": 1110,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 90.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "htdocs/coffee/game.ready.coffee",
+					"settings":
+					{
+						"buffer_size": 289,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								277,
+								277
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/CoffeeScript/CoffeeScript.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "htdocs/js/game.ready.js",
+					"settings":
+					{
+						"buffer_size": 446,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 7,
+					"file": "htdocs/js/game.ready_orig.js",
+					"settings":
+					{
+						"buffer_size": 2126,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2126,
+								1793
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 1435.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 0.0
+	},
+	"input":
+	{
+		"height": 0.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"replace":
+	{
+		"height": 62.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 150.0,
+	"status_bar_visible": true
+}
