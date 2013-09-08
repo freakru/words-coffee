@@ -112,7 +112,7 @@
         _this.reset();
         return $('#menu').hide();
       });
-      $('#scores').unbind().click(function() {
+      $('#scores').unbind().click(function(e) {
         return _this.request.get({
           r: 'user/get-scores'
         }, function(data) {
@@ -190,7 +190,18 @@
       });
     };
     this.initAchievements = function() {
-      return this.maxAchievScore = 0;
+      var achievement, tmpAchievements;
+      this.maxAchievScore = 0;
+      tmpAchievements = (function() {
+        var _i, _len, _ref, _results;
+        _ref = this.achievements;
+        _results = [];
+        for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+          achievement = _ref[_i];
+          _results.push(achievement);
+        }
+        return _results;
+      }).call(this);
     };
     this.initRareLetters = function() {
       var letter, _i, _len, _ref, _results;
@@ -316,9 +327,9 @@
         this.used.shortWords++;
       }
       if (word.length > 6) {
-        used.longWords++;
+        this.used.longWords++;
       }
-      if (word.containsRare()) {
+      if (word.containsRare(this.rareLetters)) {
         this.used.rareLetters++;
       }
       if (this.isExpensive(word)) {
@@ -538,8 +549,36 @@
       }
       return this.graphic.getWindow($('#win-achievements'), header, achievementsContent);
     };
-    this.showScores = function(scores) {};
-    this.save = function() {};
+    this.showScores = function(scores) {
+      var content, header, i, score, _i, _len;
+      header = t.scores;
+      content = '';
+      for (i = _i = 0, _len = scores.length; _i < _len; i = ++_i) {
+        score = scores[i];
+        content += '<tr><td>' + (i + 1) + '.</td><td>' + score.name + '</td><td>' + score.score + '</td></tr>';
+      }
+      content = '<table>' + content + '</table>';
+      return this.graphic.getWindow($('#win-scores'), header, content);
+    };
+    this.save = function() {
+      var gameState;
+      if (!isLocalStorageSupports()) {
+        return false;
+      }
+      gameState = {
+        timer: this.timer,
+        level: this.level,
+        score: this.score,
+        correctAnswers: this.correctAnswers,
+        achievScore: this.achievScore,
+        achievements: this.achievements,
+        used: this.used,
+        userId: this.userId,
+        userName: this.userName,
+        lang: this.lang
+      };
+      return localStorage.setItem('wordGame', JSON.stringify(gameState));
+    };
     this.load = function() {
       var gameState, strGameState;
       strGameState = localStorage.getItem('wordGame');

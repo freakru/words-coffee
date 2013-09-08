@@ -49,8 +49,7 @@ window.Game = (lang, graphic, request) ->
         if @isNewGame()
             $('#modal').modal {keyboard: false}
         else
-            @populateUser()
-        
+            @populateUser()        
         
         @localize()
         @initControls()
@@ -110,7 +109,7 @@ window.Game = (lang, graphic, request) ->
             @reset()
             $('#menu').hide()
 
-        $('#scores').unbind().click =>
+        $('#scores').unbind().click (e) =>
             @request.get {r: 'user/get-scores'}, (data) =>
                 @showScores(data)
                 $('#menu').hide()
@@ -191,7 +190,9 @@ window.Game = (lang, graphic, request) ->
 
     @initAchievements = () ->
         @maxAchievScore = 0
-        # TODO: implement
+        
+        tmpAchievements = (achievement for achievement in @achievements)
+        return
 
     @initRareLetters = () ->
         @rareLetters = []
@@ -224,6 +225,7 @@ window.Game = (lang, graphic, request) ->
           rawWeight = @lettersWeights[letter]
           weight = rawWeight / maxPercent
           @lettersWeights[letter] = maxLetterWeight - Math.ceil(maxLetterWeight * weight) + 1
+          #todo
 
     @populateUser = () ->
         $('#user').text "#{t.hallo} #{@userName}"
@@ -283,8 +285,8 @@ window.Game = (lang, graphic, request) ->
         @used.palindrome++ if @isPalindrome word
         @used.anagram++ if @isAnagram word
         @used.shortWords++ if word.length < 4
-        used.longWords++ if word.length > 6
-        @used.rareLetters++ if word.containsRare()
+        @used.longWords++ if word.length > 6
+        @used.rareLetters++ if word.containsRare @rareLetters
         @used.expensiveWords++ if @isExpensive word
 
         @correctAnswers.push w:word, s:score
@@ -365,7 +367,7 @@ window.Game = (lang, graphic, request) ->
                 
                 achievement.isCompleted = true
                 achievement.date = new Date()
-                @graphic.updateLevelBar this.level, this.score, this.maxLevel, this.nextLevel
+                @graphic.updateLevelBar @level, @score, @maxLevel, @nextLevel
                 @updateLevel()
                 @updateWords()
                 log('achiev ' + score)
@@ -458,7 +460,7 @@ window.Game = (lang, graphic, request) ->
                 @graphic.message(t.message, t.word_added.format(word.strong()), '')
 
     @showAchievements = () -> 
-        header = t.achievements + ' ' + this.achievScore + ' / ' + this.maxAchievScore
+        header = t.achievements + ' ' + @achievScore + ' / ' + @maxAchievScore
         achievementsContent = ''
         
         @achievements = @achievements.sortC()
@@ -484,10 +486,29 @@ window.Game = (lang, graphic, request) ->
         @graphic.getWindow $('#win-achievements'), header, achievementsContent
 
     @showScores = (scores) ->
-        #TODO
+        header = t.scores
+        content = ''
+        for score, i in scores
+            content += '<tr><td>' + (i + 1) + '.</td><td>' + score.name + '</td><td>' + score.score + '</td></tr>'
+        
+        content = '<table>' + content + '</table>'
+        @graphic.getWindow($('#win-scores'), header, content)
 
     @save = () ->
-        # TODO
+        return false unless isLocalStorageSupports()
+        gameState =
+            timer: @timer,
+            level: @level,
+            score: @score,
+            correctAnswers: @correctAnswers,
+            achievScore: @achievScore,
+            achievements: @achievements,
+            used: @used,
+            userId: @userId,
+            userName: @userName,
+            lang: @lang
+    
+        localStorage.setItem 'wordGame', JSON.stringify(gameState)
 
     @load = () ->
         strGameState = localStorage.getItem 'wordGame'

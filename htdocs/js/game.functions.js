@@ -42,8 +42,7 @@ String.prototype.format = function() {
   return formatted;
 }
 
-String.prototype.containsRare = function() {
-  var rareLetters = game.rareLetters;
+String.prototype.containsRare = function(rareLetters) {
   for (var i = 0; i < rareLetters.length; i++) {
     if (this.contains(rareLetters[i])) {
       return true;
