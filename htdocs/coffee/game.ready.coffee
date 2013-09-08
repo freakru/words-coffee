@@ -3,6 +3,14 @@ window.mainwords =
     'en':'nationalization',
     'de':'durchsichtlichkeit,reißverschluss'
 
+window.isLocalStorageSupports = () ->
+  try
+    return 'localStorage' in window && window['localStorage'] != null
+  catch e
+    return false
+  
+
+
 # in percent
 window.letterFrequency =
     ru: 

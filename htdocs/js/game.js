@@ -144,7 +144,7 @@
         return e.preventDefault();
       });
       $('body').on('click', '.add-word', function(e) {
-        this.addWord($('.add-word-container strong').text());
+        _this.addWord($('.add-word-container strong').text());
         return e.preventDefault();
       });
       $('.add-word-close').on('click', function(e) {
@@ -253,7 +253,38 @@
     this.isPalindrome = function(word) {
       return word.length > 4 && this.correctAnswers.containsWord(word.reverse());
     };
-    this.isAnagram = function(word) {};
+    this.isAnagram = function(word) {
+      var answer, availableLetters, idx, isAnagram, letter, wordLetters, _i, _j, _len, _len1, _ref;
+      if (this.correctAnswers.length < 2 || this.isPalindrome(word || word.length < 5)) {
+        return false;
+      }
+      isAnagram = true;
+      wordLetters = word.split('');
+      _ref = this.correctAnswers;
+      for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+        answer = _ref[_i];
+        isAnagram = true;
+        if (word.length !== answer.length || answer.w === word) {
+          isAnagram = false;
+          continue;
+        }
+        availableLetters = answer.w.split('');
+        for (_j = 0, _len1 = wordLetters.length; _j < _len1; _j++) {
+          letter = wordLetters[_j];
+          if (!availableLetters.contains(letter)) {
+            isAnagram = false;
+            continue;
+          }
+          idx = availableLetters.indexOf(letter);
+          if (idx === -1) {
+            isAnagram = false;
+            continue;
+          }
+          availableLetters.splice(idx, 1);
+        }
+        return isAnagram;
+      }
+    };
     this.isExpensive = function(word) {
       return 50 <= this.getScore(word);
     };
@@ -500,8 +531,8 @@
       return false;
     };
     this.errorAddWord = function(message) {
-      message = '<div class="add-word-container">#{message}</div>';
-      message += ' <a href="#" class="add-word">#{t.add_word}</a>';
+      message = "<div class='add-word-container'>" + message + "</div>";
+      message += " <a href='#'' class='add-word'>" + t.add_word + "</a>";
       this.graphic.message(t.error, message, '', 10000000);
       return false;
     };
@@ -510,7 +541,7 @@
       return this.request.get({
         r: 'dictionary/add-word',
         word: word,
-        userId: game.userId
+        userId: this.userId
       }, function(data) {
         if (data.success) {
           _this.tryAnswer(data.word);

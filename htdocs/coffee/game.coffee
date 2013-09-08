@@ -137,7 +137,7 @@ window.Game = (lang, graphic, request) ->
             $(this).parent().hide()
             e.preventDefault()
 
-        $('body').on 'click', '.add-word', (e) ->
+        $('body').on 'click', '.add-word', (e) =>
             @addWord($('.add-word-container strong').text())
             e.preventDefault()
 
@@ -235,7 +235,29 @@ window.Game = (lang, graphic, request) ->
         word.length > 4 && @correctAnswers.containsWord word.reverse()
 
     @isAnagram = (word) ->
-        # TODO: implement
+        return false if @correctAnswers.length < 2 or @isPalindrome word or word.length < 5
+        isAnagram = true
+        wordLetters = word.split ''
+        for answer in @correctAnswers
+            isAnagram = true
+
+            if word.length != answer.length || answer.w == word
+                isAnagram = false
+                continue
+
+            availableLetters = answer.w.split ''
+            for letter in wordLetters
+                if !availableLetters.contains(letter)
+                    isAnagram = false
+                    continue
+
+                idx = availableLetters.indexOf(letter)
+                if idx == -1
+                    isAnagram = false
+                    continue
+                availableLetters.splice(idx, 1)          
+
+            return isAnagram
 
     @isExpensive = (word) ->
         50 <= @getScore word
@@ -447,13 +469,13 @@ window.Game = (lang, graphic, request) ->
         return false
 
     @errorAddWord = (message) ->
-        message = '<div class="add-word-container">#{message}</div>'
-        message += ' <a href="#" class="add-word">#{t.add_word}</a>'
+        message = "<div class='add-word-container'>#{message}</div>"
+        message += " <a href='#'' class='add-word'>#{t.add_word}</a>"
         @graphic.message(t.error, message, '', 10000000)
         return false
 
     @addWord = (word) ->
-        @request.get {r: 'dictionary/add-word', word: word, userId: game.userId}, (data) =>
+        @request.get {r: 'dictionary/add-word', word: word, userId: @userId}, (data) =>
             if data.success
                 @tryAnswer data.word
                 $('.jGrowl-close').click()
