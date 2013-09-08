@@ -421,7 +421,20 @@
         }
       }
     };
-    this.drawEmpty = function() {};
+    this.drawEmpty = function() {
+      var $mainContainer, $weight, i, letter, weight, _i;
+      $mainContainer = $('.box');
+      $mainContainer.empty();
+      for (i = _i = 0; _i <= 9; i = ++_i) {
+        letter = 'х';
+        weight = 6;
+        $weight = $('<div>').attr('class', 'weight w' + weight).text(weight);
+        $('<div>').attr({
+          'class': 'letter'.text(letter).append($weight).appendTo($mainContainer)
+        });
+      }
+      return $mainContainer.append('<div class="clear" />');
+    };
     this.draw = function() {
       var $mainContainer, $weight, letter, mainLetters, weight, _i, _len;
       mainLetters = this.mainword.split('');
@@ -458,11 +471,71 @@
           return this.animateLetters();
       }
     };
-    this.animateLetters = function() {};
-    this.error = function(message) {};
-    this.errorAddWord = function(message) {};
-    this.addWord = function(word) {};
-    this.showAchievements = function() {};
+    this.animateLetters = function() {
+      var $letterElement, letter, word, _i, _len, _results;
+      word = $('#answer').val();
+      $('.letter').removeClass('selected');
+      _results = [];
+      for (_i = 0, _len = word.length; _i < _len; _i++) {
+        letter = word[_i];
+        $letterElement = $(".letter:contains('" + letter + "'):not('.selected'):first");
+        _results.push($letterElement.addClass('selected'));
+      }
+      return _results;
+    };
+    this.error = function(message) {
+      this.graphic.message(t.error, message, '');
+      return false;
+    };
+    this.errorAddWord = function(message) {
+      message = '<div class="add-word-container">#{message}</div>';
+      message += ' <a href="#" class="add-word">#{t.add_word}</a>';
+      this.graphic.message(t.error, message, '', 10000000);
+      return false;
+    };
+    this.addWord = function(word) {
+      var _this = this;
+      return this.request.get({
+        r: 'dictionary/add-word',
+        word: word,
+        userId: game.userId
+      }, function(data) {
+        if (data.success) {
+          _this.tryAnswer(data.word);
+          $('.jGrowl-close').click();
+          return _this.graphic.message(t.message, t.word_added.format(word.strong()), '');
+        }
+      });
+    };
+    this.showAchievements = function() {
+      var achievement, achievementsContent, completedClass, header, iconName, iconStyle, item, _i, _len, _ref, _ref1, _ref2;
+      header = t.achievements + ' ' + this.achievScore + ' / ' + this.maxAchievScore;
+      achievementsContent = '';
+      this.achievements = this.achievements.sortC();
+      _ref = this.achievements;
+      for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+        achievement = _ref[_i];
+        if (typeof achievement.date === 'string') {
+          achievement.date = new Date(achievement.date);
+        }
+        iconName = achievement.n;
+        iconName += achievement.p != null;
+        iconStyle = 'background-image: url(img/achievements/' + iconName + '.png)';
+        completedClass = (_ref1 = achievement.isCompleted) != null ? _ref1 : {
+          ' completed ': ''
+        };
+        item = '<div class="ach-item ' + completedClass + '">\
+            <div class="icon" style="' + iconStyle + '"></div>\
+            <div class="header">' + achievement.header + '</div>\
+            <div class="description">' + achievement.description + '</div>\
+            <div class="score"><div class="value">' + achievement.s + '</div>';
+        item += '<div class="date">' + ((_ref2 = achievement.date) != null ? _ref2.format() : void 0) + '</div>';
+        item += '</div>';
+        +'</div>';
+        achievementsContent += item;
+      }
+      return this.graphic.getWindow($('#win-achievements'), header, achievementsContent);
+    };
     this.showScores = function(scores) {};
     this.save = function() {};
     this.load = function() {

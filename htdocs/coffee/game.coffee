@@ -374,7 +374,22 @@ window.Game = (lang, graphic, request) ->
 
 
     @drawEmpty = () ->
-        # TODO
+        $mainContainer = $('.box')
+        $mainContainer.empty()
+        for i in [0..9]
+            letter = 'х'
+            weight = 6
+          
+            $weight = $('<div>')
+            .attr('class', 'weight w' + weight)
+            .text(weight)
+
+            $('<div>').attr 'class': 'letter'
+            .text(letter)
+            .append($weight)
+            .appendTo($mainContainer)
+
+        $mainContainer.append('<div class="clear" />')
 
     @draw = () ->
         mainLetters = @mainword.split('')
@@ -418,19 +433,56 @@ window.Game = (lang, graphic, request) ->
                 @animateLetters()
 
     @animateLetters = () ->
-        # TODO
+        word = $('#answer').val()
+        $('.letter').removeClass('selected')
+        
+        for letter in word
+            $letterElement = $(".letter:contains('" + letter + "'):not('.selected'):first")
+            $letterElement.addClass('selected')
 
     @error = (message) ->
-        # TODO
+        @graphic.message(t.error, message, '')
+        return false
 
     @errorAddWord = (message) ->
-        # TODO
+        message = '<div class="add-word-container">#{message}</div>'
+        message += ' <a href="#" class="add-word">#{t.add_word}</a>'
+        @graphic.message(t.error, message, '', 10000000)
+        return false
 
     @addWord = (word) ->
-        # TODO
+        @request.get {r: 'dictionary/add-word', word: word, userId: game.userId}, (data) =>
+            if data.success
+                @tryAnswer data.word
+                $('.jGrowl-close').click()
+                @graphic.message(t.message, t.word_added.format(word.strong()), '')
 
     @showAchievements = () -> 
-        # TODO
+        header = t.achievements + ' ' + this.achievScore + ' / ' + this.maxAchievScore
+        achievementsContent = ''
+        
+        @achievements = @achievements.sortC()
+        for achievement in @achievements
+            if typeof(achievement.date) == 'string'
+                achievement.date = new Date(achievement.date)
+          
+            iconName = achievement.n            
+            iconName += achievement.p?
+            iconStyle = 'background-image: url(img/achievements/' + iconName + '.png)'
+            completedClass = achievement.isCompleted ? ' completed ' : ''
+            item = '<div class="ach-item ' + completedClass + '">
+            <div class="icon" style="' + iconStyle + '"></div>
+            <div class="header">' + achievement.header + '</div>
+            <div class="description">' + achievement.description + '</div>
+            <div class="score"><div class="value">' + achievement.s + '</div>'
+          
+            item += '<div class="date">' + achievement.date?.format() + '</div>'
+
+            item += '</div>'
+            + '</div>';
+          
+            achievementsContent += item
+        @graphic.getWindow $('#win-achievements'), header, achievementsContent
 
     @showScores = (scores) ->
         #TODO
