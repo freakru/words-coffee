@@ -6,10 +6,11 @@ window.Request = ->
             data: data,
             dataType: 'json',
             success: (data) ->
-              successCallback?(this, data)
+              successCallback? data
             ,
             error: (e, type, message) ->
                 console.error message
                 graphic.message 'Error', message
             }
+        return
     return

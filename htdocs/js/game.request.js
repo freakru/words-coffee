@@ -2,13 +2,13 @@
 (function() {
   window.Request = function() {
     this.get = function(data, successCallback) {
-      return $.ajax({
+      $.ajax({
         url: 'protected/ajax.php',
         type: 'post',
         data: data,
         dataType: 'json',
         success: function(data) {
-          return typeof successCallback === "function" ? successCallback(this, data) : void 0;
+          return typeof successCallback === "function" ? successCallback(data) : void 0;
         },
         error: function(e, type, message) {
           console.error(message);

@@ -96,16 +96,15 @@ window.letterFrequency =
 
 $ ->
     $('.draggable').draggable()
-    maxLetterWeight = 10
-    minWordLen = 2
-    minScore = 5
+    window.maxLetterWeight = 10
+    window.minWordLen = 2
+    window.minScore = 5
     debug = true
-    graphic = new Graphic();
-    request = new Request();
+    graphic = new Graphic()
+    request = new Request()
 
-    game = new Game(navigator.language, graphic, request);
+    game = new Game(navigator.language, graphic, request)
 
     game.play()
     $('#answer').focus()
-    console.log game
     return

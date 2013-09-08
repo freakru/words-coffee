@@ -20,7 +20,7 @@ window.Graphic = () ->
         oldBackground = $('#answer').css('background-color')
         newBackground = '#fff'
         $('#answer').css('background-color', newBackground)
-        callback ->
+        callback = ->
             $('#answer').css('background-color', oldBackground)
         setTimeout callback, 200
 

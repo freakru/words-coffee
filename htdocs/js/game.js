@@ -75,7 +75,120 @@
       $('#username-label').text(t.username);
       return $('#achiev').text(t.achievements);
     };
-    this.initControls = function() {};
+    this.initControls = function() {
+      var _this = this;
+      $('#answer').unbind().keyup(function(e) {
+        return _this.handleEvents(e);
+      });
+      $('#enter').unbind().click(function() {
+        var press;
+        press = jQuery.Event("keyup");
+        press.ctrlKey = false;
+        press.which = 13;
+        press.keyCode = 13;
+        return $("#answer").trigger(press);
+      });
+      $('.box').on('click', '.letter', function() {
+        var $letterElement, letter, partWord, press, word;
+        $letterElement = $(this);
+        letter = $letterElement.text().firstChar();
+        partWord = $("#answer").val();
+        word = partWord + letter;
+        if ($letterElement.hasClass('selected')) {
+          $letterElement.removeClass('selected');
+          word = $("#answer").val().replace(letter, '');
+        } else {
+          $letterElement.addClass('selected');
+        }
+        $("#answer").val(word);
+        $("#answer").focus();
+        return press = jQuery.Event("keyup");
+      });
+      $('#showMenu').unbind().click(function() {
+        $('#menu').toggle();
+        return false;
+      });
+      $('#new').unbind().click(function() {
+        _this.reset();
+        return $('#menu').hide();
+      });
+      $('#scores').unbind().click(function() {
+        return _this.request.get({
+          r: 'user/get-scores'
+        }, function(data) {
+          _this.showScores(data);
+          $('#menu').hide();
+          return e.preventDefault();
+        });
+      });
+      $('#save').unbind().click(function() {
+        _this.save();
+        return $('#menu').hide();
+      });
+      $('#load').unbind().click(function() {
+        _this.load();
+        return $('#menu').hide();
+      });
+      $('#achiev').unbind().click(function() {
+        _this.showAchievements();
+        $('#menu').hide();
+        return e.preventDefault();
+      });
+      $('.input-clear').on('click', function(e) {
+        $(this).prev('input').val("").focus();
+        $('.letter').removeClass('selected');
+        return e.preventDefault();
+      });
+      $('.close').on('click', function(e) {
+        $(this).parent().hide();
+        return e.preventDefault();
+      });
+      $('body').on('click', '.add-word', function(e) {
+        this.addWord($('.add-word-container strong').text());
+        return e.preventDefault();
+      });
+      $('.add-word-close').on('click', function(e) {
+        $('#message').fadeOut();
+        return e.preventDefault();
+      });
+      $('#sort-a').toggle(function() {
+        _this.correctAnswers.sortA().reverse();
+        return _this.populateAnswers();
+      }, function() {
+        _this.correctAnswers.sortA();
+        return _this.populateAnswers();
+      });
+      $('#sort-l').toggle(function() {
+        _this.correctAnswers.sortL().reverse();
+        return _this.populateAnswers();
+      }, function() {
+        _this.correctAnswers.sortL();
+        return _this.populateAnswers();
+      });
+      $('#sort-s').toggle(function() {
+        _this.correctAnswers.sortS().reverse();
+        return _this.populateAnswers();
+      }, function() {
+        _this.correctAnswers.sortS();
+        return _this.populateAnswers();
+      });
+      $('.lang[id="lang-#{@lang}"]').addClass('selected');
+      $('.lang').unbind().click(function(e) {
+        $('.lang').removeClass('selected');
+        $(_this).addClass('selected');
+        _this.lang = $(_this).attr('data-lang');
+        _this.play();
+        return e.preventDefault();
+      });
+      $('#username-enter').unbind().click(function() {
+        return _this.enterUsername();
+      });
+      return $('#username').unbind().keyup(function(e) {
+        if (e.keyCode === 13) {
+          return $("#username-enter").click();
+        }
+      });
+    };
     this.initAchievements = function() {
       return this.maxAchievScore = 0;
     };
@@ -106,21 +219,17 @@
       return this.lettersWeights[letter];
     };
     this.fillLettersWeights = function() {
-      var letter, maxPercent, rawWeight, weight, _i, _j, _len, _len1, _ref, _ref1, _results;
+      var letter, maxPercent, rawWeight, weight, _results;
       this.lettersWeights = $.extend(true, {}, letterFrequency[this.lang]);
       maxPercent = 0;
-      _ref = this.lettersWeights;
-      for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-        letter = _ref[_i];
+      for (letter in this.lettersWeights) {
         rawWeight = this.lettersWeights[letter];
         if (rawWeight > maxPercent) {
           maxPercent = rawWeight;
         }
       }
-      _ref1 = this.lettersWeights;
       _results = [];
-      for (_j = 0, _len1 = _ref1.length; _j < _len1; _j++) {
-        letter = _ref1[_j];
+      for (letter in this.lettersWeights) {
         rawWeight = this.lettersWeights[letter];
         weight = rawWeight / maxPercent;
         _results.push(this.lettersWeights[letter] = maxLetterWeight - Math.ceil(maxLetterWeight * weight) + 1);
@@ -137,24 +246,218 @@
     this.isExpensive = function(word) {
       return 50 <= this.getScore(word);
     };
-    this.isCorrectWord = function(answer) {};
-    this.ask = function(word) {};
-    this.tryAnswer = function(word) {};
-    this.getScore = function(word) {};
-    this.addScore = function(score) {};
-    this.updateLevel = function() {};
+    this.isCorrectWord = function(answer) {
+      var answerLetters, answerLettersLen, availableLetters, idx, letter, mainLetters, score, _i, _len;
+      mainLetters = this.mainword.split('');
+      answerLetters = answer.split('');
+      answerLettersLen = answerLetters.length;
+      score = this.getScore(answer);
+      if (answer.length < minWordLen) {
+        return this.error(t.min_word_length.format(minWordLen));
+      }
+      if (answer === this.mainword) {
+        return this.error(t.already_used.format(answer.strong()));
+      }
+      if (score < minScore) {
+        return this.error(t.min_score.format(minScore));
+      }
+      if (this.correctAnswers.containsWord(answer)) {
+        return this.error(t.already_used.format(answer.strong()));
+      }
+      availableLetters = this.mainword.split('');
+      for (_i = 0, _len = answerLetters.length; _i < _len; _i++) {
+        letter = answerLetters[_i];
+        if (!availableLetters.contains(letter)) {
+          return this.error(t.cannot_make.format(answer.strong(), this.mainword.strong()));
+        }
+        idx = availableLetters.indexOf(letter);
+        if (idx === -1) {
+          return this.error(t.cannot_make.format(answer.strong(), this.mainword.strong()));
+        }
+        availableLetters.splice(idx, 1);
+      }
+      return true;
+    };
+    this.ask = function(word) {
+      var _this = this;
+      if (!this.isCorrectWord(word)) {
+        return false;
+      }
+      return this.request.get({
+        r: 'dictionary/try',
+        word: word
+      }, function(data) {
+        if (data.isAllowed) {
+          return _this.tryAnswer(data.word);
+        } else {
+          return _this.errorAddWord(t.unknown_word.format(word.strong()));
+        }
+      });
+    };
+    this.tryAnswer = function(word) {
+      var $answerRow, countLetters, score;
+      if (!this.isCorrectWord(word)) {
+        return false;
+      }
+      score = this.getScore(word);
+      countLetters = word.length;
+      $answerRow = $('<tr><td>' + word + '</td><td>' + countLetters + '</td><td>' + score + '</td></tr>');
+      $('#answerContainer table').prepend($answerRow);
+      this.addScore(score);
+      this.graphic.updateLevelBar(this.level, this.score, this.maxLevel, this.nextLevel);
+      this.updateLevel();
+      if (this.isPalindrome(word)) {
+        this.used.palindrome++;
+      }
+      if (this.isAnagram(word)) {
+        this.used.anagram++;
+      }
+      if (word.length < 4) {
+        this.used.shortWords++;
+      }
+      if (word.length > 6) {
+        used.longWords++;
+      }
+      if (word.containsRare()) {
+        this.used.rareLetters++;
+      }
+      if (this.isExpensive(word)) {
+        this.used.expensiveWords++;
+      }
+      this.correctAnswers.push({
+        w: word,
+        s: score
+      });
+      this.updateWords();
+      this.checkAchievements(word);
+      this.save();
+      $('.letter').removeClass('selected');
+      $('#answerLetters').empty();
+      $('#answer').val('');
+      $('#answer').focus();
+    };
+    this.getScore = function(word) {
+      var letter, letters, lettersLen, score, _i, _len;
+      score = 0;
+      letters = word.split('');
+      lettersLen = letters.length;
+      for (_i = 0, _len = letters.length; _i < _len; _i++) {
+        letter = letters[_i];
+        score += this.getLetterWeight(letter);
+      }
+      return score;
+    };
+    this.addScore = function(score) {
+      var _this = this;
+      this.score = parseInt(this.score + score, 10);
+      $('#score').text(t.score + ': ' + this.score);
+      return this.request.get({
+        r: 'user/set-score',
+        score: this.score
+      }, function(data) {
+        _this.isFirst = (data != null) && data.isFirst;
+      });
+    };
+    this.updateLevel = function() {
+      if (this.level >= this.maxLevel) {
+        return false;
+      }
+      return $('#level').text(t.level + ': ' + this.level);
+    };
     this.updateWords = function() {
       return $('#words').text(t.words + ': ' + this.correctAnswers.length);
     };
-    this.nextLevel = function() {};
+    this.nextLevel = function() {
+      if (this.level >= this.maxLevel) {
+        return false;
+      }
+      this.level++;
+      this.getMainword();
+      return this.draw();
+    };
     this.populateTimer = function() {
       return $('#timer').text(t.time + ': ' + this.timer.formatTime());
     };
-    this.setTimer = function() {};
-    this.checkAchievements = function(arg) {};
+    this.setTimer = function() {
+      var _this = this;
+      populateTimer();
+      this.timer++;
+      setTimeout(function() {
+        return _this.setTimer();
+      }, 1000);
+      this.checkAchievements({
+        type: 'time'
+      });
+    };
+    this.checkAchievements = function(arg) {
+      var achievement, header, regExp, type, word, _i, _len;
+      type = '';
+      word = '';
+      if (typeof arg === 'object') {
+        type = arg.type;
+      } else {
+        word = arg;
+      }
+      for (_i = 0, _len = achievements.length; _i < _len; _i++) {
+        achievement = achievements[_i];
+        achievement.fn;
+        regExp = new RegExp(type);
+        if (type && !regExp.test(achievement.n)) {
+          continue;
+        }
+        if (typeof fn !== 'function') {
+          continue;
+        }
+        if (!achievement.isCompleted && fn.apply(this, [word, achievement.p])) {
+          header = achievement.header + ' +' + achievement.s;
+          this.graphic.message(header, achievement.description, 'achievement');
+          achievement.isCompleted = true;
+          achievement.date = new Date();
+          this.graphic.updateLevelBar(this.level, this.score, this.maxLevel, this.nextLevel);
+          this.updateLevel();
+          this.updateWords();
+          log('achiev ' + score);
+          this.achievScore += achievement.s;
+        }
+      }
+    };
     this.drawEmpty = function() {};
-    this.draw = function() {};
-    this.handleEvents = function(e) {};
+    this.draw = function() {
+      var $mainContainer, $weight, letter, mainLetters, weight, _i, _len;
+      mainLetters = this.mainword.split('');
+      $mainContainer = $('.box');
+      $mainContainer.empty();
+      for (_i = 0, _len = mainLetters.length; _i < _len; _i++) {
+        letter = mainLetters[_i];
+        weight = this.getLetterWeight(letter);
+        $weight = $('<div>').attr('class', 'weight w' + weight).text(weight);
+        $('<div>').attr({
+          'class': 'letter'
+        }).text(letter).append($weight).appendTo($mainContainer);
+      }
+      return $mainContainer.append('<div class="clear" />');
+    };
+    this.handleEvents = function(e) {
+      switch (e.keyCode) {
+        case 13:
+          if (!$('#answer').val()) {
+            return false;
+          }
+          graphic.animateAnswer();
+          this.ask($('#answer').val());
+          return e.preventDefault();
+        case 27:
+          $('#answerLetters').empty();
+          $('#answer').val('');
+          $('.letter').removeClass('selected');
+          return e.preventDefault();
+        case 8:
+          this.animateLetters();
+          return e.preventDefault();
+        default:
+          return this.animateLetters();
+      }
+    };
     this.animateLetters = function() {};
     this.error = function(message) {};
     this.errorAddWord = function(message) {};

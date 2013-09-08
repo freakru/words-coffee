@@ -19,13 +19,13 @@
       });
     };
     this.animateAnswer = function() {
-      var newBackground, oldBackground;
+      var callback, newBackground, oldBackground;
       oldBackground = $('#answer').css('background-color');
       newBackground = '#fff';
       $('#answer').css('background-color', newBackground);
-      callback(function() {
+      callback = function() {
         return $('#answer').css('background-color', oldBackground);
-      });
+      };
       return setTimeout(callback, 200);
     };
     this.updateLevelBar = function(level, score, maxLevel, nextLevelCallback) {

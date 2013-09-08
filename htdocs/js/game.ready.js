@@ -101,18 +101,17 @@
   };
 
   $(function() {
-    var debug, game, graphic, maxLetterWeight, minScore, minWordLen, request;
+    var debug, game, graphic, request;
     $('.draggable').draggable();
-    maxLetterWeight = 10;
-    minWordLen = 2;
-    minScore = 5;
+    window.maxLetterWeight = 10;
+    window.minWordLen = 2;
+    window.minScore = 5;
     debug = true;
     graphic = new Graphic();
     request = new Request();
     game = new Game(navigator.language, graphic, request);
     game.play();
     $('#answer').focus();
-    console.log(game);
   });
 
 }).call(this);
