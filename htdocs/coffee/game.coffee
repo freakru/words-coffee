@@ -124,7 +124,7 @@ window.Game = (lang, graphic, request) ->
             @load()
             $('#menu').hide()
 
-        $('#achiev').unbind().click =>
+        $('#achiev').unbind().click (e) =>
             @showAchievements()
             $('#menu').hide()
             e.preventDefault()
@@ -334,7 +334,7 @@ window.Game = (lang, graphic, request) ->
         $('#timer').text t.time + ': ' + @timer.formatTime()
 
     @setTimer = () ->
-        populateTimer()
+        @populateTimer()
         @timer++
         
         setTimeout(=>
@@ -351,7 +351,7 @@ window.Game = (lang, graphic, request) ->
         else
             word = arg
 
-        for achievement in achievements
+        for achievement in @achievements
             achievement.fn
             regExp = new RegExp type
 
@@ -467,19 +467,18 @@ window.Game = (lang, graphic, request) ->
                 achievement.date = new Date(achievement.date)
           
             iconName = achievement.n            
-            iconName += achievement.p?
+            iconName += achievement.p unless achievement.p == 'undefined'
             iconStyle = 'background-image: url(img/achievements/' + iconName + '.png)'
-            completedClass = achievement.isCompleted ? ' completed ' : ''
+            completedClass = if achievement.isCompleted then ' completed ' else ''
             item = '<div class="ach-item ' + completedClass + '">
             <div class="icon" style="' + iconStyle + '"></div>
             <div class="header">' + achievement.header + '</div>
             <div class="description">' + achievement.description + '</div>
             <div class="score"><div class="value">' + achievement.s + '</div>'
           
-            item += '<div class="date">' + achievement.date?.format() + '</div>'
+            item += "<div class='date'>#{achievement.date.format()}</div>" if achievement.date
 
-            item += '</div>'
-            + '</div>';
+            item += '</div></div>';
           
             achievementsContent += item
         @graphic.getWindow $('#win-achievements'), header, achievementsContent

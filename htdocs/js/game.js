@@ -129,7 +129,7 @@
         _this.load();
         return $('#menu').hide();
       });
-      $('#achiev').unbind().click(function() {
+      $('#achiev').unbind().click(function(e) {
         _this.showAchievements();
         $('#menu').hide();
         return e.preventDefault();
@@ -380,7 +380,7 @@
     };
     this.setTimer = function() {
       var _this = this;
-      populateTimer();
+      this.populateTimer();
       this.timer++;
       setTimeout(function() {
         return _this.setTimer();
@@ -390,7 +390,7 @@
       });
     };
     this.checkAchievements = function(arg) {
-      var achievement, header, regExp, type, word, _i, _len;
+      var achievement, header, regExp, type, word, _i, _len, _ref;
       type = '';
       word = '';
       if (typeof arg === 'object') {
@@ -398,8 +398,9 @@
       } else {
         word = arg;
       }
-      for (_i = 0, _len = achievements.length; _i < _len; _i++) {
-        achievement = achievements[_i];
+      _ref = this.achievements;
+      for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+        achievement = _ref[_i];
         achievement.fn;
         regExp = new RegExp(type);
         if (type && !regExp.test(achievement.n)) {
@@ -508,7 +509,7 @@
       });
     };
     this.showAchievements = function() {
-      var achievement, achievementsContent, completedClass, header, iconName, iconStyle, item, _i, _len, _ref, _ref1, _ref2;
+      var achievement, achievementsContent, completedClass, header, iconName, iconStyle, item, _i, _len, _ref;
       header = t.achievements + ' ' + this.achievScore + ' / ' + this.maxAchievScore;
       achievementsContent = '';
       this.achievements = this.achievements.sortC();
@@ -519,19 +520,20 @@
           achievement.date = new Date(achievement.date);
         }
         iconName = achievement.n;
-        iconName += achievement.p != null;
+        if (achievement.p !== 'undefined') {
+          iconName += achievement.p;
+        }
         iconStyle = 'background-image: url(img/achievements/' + iconName + '.png)';
-        completedClass = (_ref1 = achievement.isCompleted) != null ? _ref1 : {
-          ' completed ': ''
-        };
+        completedClass = achievement.isCompleted ? ' completed ' : '';
         item = '<div class="ach-item ' + completedClass + '">\
             <div class="icon" style="' + iconStyle + '"></div>\
             <div class="header">' + achievement.header + '</div>\
             <div class="description">' + achievement.description + '</div>\
             <div class="score"><div class="value">' + achievement.s + '</div>';
-        item += '<div class="date">' + ((_ref2 = achievement.date) != null ? _ref2.format() : void 0) + '</div>';
-        item += '</div>';
-        +'</div>';
+        if (achievement.date) {
+          item += "<div class='date'>" + (achievement.date.format()) + "</div>";
+        }
+        item += '</div></div>';
         achievementsContent += item;
       }
       return this.graphic.getWindow($('#win-achievements'), header, achievementsContent);
