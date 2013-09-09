@@ -4,6 +4,34 @@
 		"selected_items":
 		[
 			[
+				"word",
+				"wordLetters"
+			],
+			[
+				"answ",
+				"answer"
+			],
+			[
+				"ac",
+				"achievements"
+			],
+			[
+				"sco",
+				"scores"
+			],
+			[
+				"ach",
+				"achievement"
+			],
+			[
+				"achi",
+				"achievement"
+			],
+			[
+				"le",
+				"letters"
+			],
+			[
 				"answer",
 				"answerLetters"
 			],
@@ -64,16 +92,8 @@
 				"json_encode"
 			],
 			[
-				"ach",
-				"achievement"
-			],
-			[
 				"t",
 				"theme"
-			],
-			[
-				"ac",
-				"achievement"
 			],
 			[
 				"RE",
@@ -104,18 +124,10 @@
 			}
 		},
 		{
-			"file": "htdocs/coffee/main.coffee",
-			"settings":
-			{
-				"buffer_size": 178,
-				"line_ending": "Windows"
-			}
-		},
-		{
 			"file": "htdocs/coffee/game.coffee",
 			"settings":
 			{
-				"buffer_size": 13023,
+				"buffer_size": 18641,
 				"line_ending": "Windows"
 			}
 		},
@@ -123,7 +135,7 @@
 			"file": "htdocs/js/game.js",
 			"settings":
 			{
-				"buffer_size": 15719,
+				"buffer_size": 23464,
 				"line_ending": "Unix"
 			}
 		},
@@ -131,31 +143,23 @@
 			"file": "htdocs/coffee/game.graphic.coffee",
 			"settings":
 			{
-				"buffer_size": 1341,
+				"buffer_size": 1502,
 				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "htdocs/js/game.graphic.js",
+			"settings":
+			{
+				"buffer_size": 1653,
+				"line_ending": "Unix"
 			}
 		},
 		{
 			"file": "htdocs/coffee/game.ready.coffee",
 			"settings":
 			{
-				"buffer_size": 2099,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "htdocs/js/game.ready_orig.js",
-			"settings":
-			{
-				"buffer_size": 2126,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "htdocs/coffee/game.request.coffee",
-			"settings":
-			{
-				"buffer_size": 442,
+				"buffer_size": 2167,
 				"line_ending": "Windows"
 			}
 		}
@@ -188,10 +192,16 @@
 	},
 	"file_history":
 	[
-		"/D/xampp/htdocs/words-coffee/htdocs/js/game.graphic.js",
+		"/D/xampp/htdocs/language-game/htdocs/index.html",
+		"/D/xampp/htdocs/language-game/htdocs/css/main.css",
+		"/D/xampp/htdocs/language-game/htdocs/js/main.js",
 		"/D/xampp/htdocs/words-coffee/htdocs/js/game.ready.js",
-		"/D/xampp/htdocs/words-coffee/htdocs/js/main.js",
+		"/D/xampp/htdocs/words-coffee/htdocs/js/game.ready_orig.js",
+		"/D/xampp/htdocs/words-coffee/htdocs/coffee/game.request.coffee",
+		"/D/xampp/htdocs/words-coffee/htdocs/js/game.functions.js",
 		"/D/xampp/htdocs/words-coffee/htdocs/coffee/main.coffee",
+		"/D/xampp/htdocs/words-coffee/htdocs/js/game.graphic.js",
+		"/D/xampp/htdocs/words-coffee/htdocs/js/main.js",
 		"/D/xampp/htdocs/words-coffee/htdocs/js/game.request.js",
 		"/D/xampp/htdocs/words-coffee/htdocs/js/i.js",
 		"/D/xampp/htdocs/words-coffee/htdocs/coffee/i.coffee",
@@ -277,6 +287,22 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"todo",
+			"save",
+			"isloca",
+			"addw",
+			"errorAddWord",
+			"rarele",
+			"correctw",
+			"this.",
+			"#scores",
+			"showsc",
+			"#achie",
+			"populatet",
+			"drawem",
+			"this.",
+			"sett",
+			";",
 			"this.",
 			"iscorre",
 			"ask",
@@ -350,6 +376,8 @@
 			"@",
 			"",
 			"@",
+			"",
+			"@",
 			"    ",
 			"с в/о",
 			"без в/о",
@@ -366,7 +394,7 @@
 	"groups":
 	[
 		{
-			"selected": 8,
+			"selected": 4,
 			"sheets":
 			[
 				{
@@ -392,7 +420,7 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 1890.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -426,18 +454,18 @@
 				},
 				{
 					"buffer": 2,
-					"file": "htdocs/coffee/main.coffee",
+					"file": "htdocs/coffee/game.coffee",
 					"settings":
 					{
-						"buffer_size": 178,
+						"buffer_size": 18641,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								178,
-								178
+								6285,
+								6285
 							]
 						],
 						"settings":
@@ -447,53 +475,25 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 3025.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
 					"buffer": 3,
-					"file": "htdocs/coffee/game.coffee",
-					"settings":
-					{
-						"buffer_size": 13023,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								7615,
-								7615
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/CoffeeScript/CoffeeScript.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 3706.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 4,
 					"file": "htdocs/js/game.js",
 					"settings":
 					{
-						"buffer_size": 15719,
+						"buffer_size": 23464,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								8896,
-								8896
+								20139,
+								20143
 							]
 						],
 						"settings":
@@ -503,25 +503,25 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 3751.0,
+						"translation.y": 8605.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
-					"buffer": 5,
+					"buffer": 4,
 					"file": "htdocs/coffee/game.graphic.coffee",
 					"settings":
 					{
-						"buffer_size": 1341,
+						"buffer_size": 1502,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1279,
-								1279
+								1491,
+								1491
 							]
 						],
 						"settings":
@@ -531,7 +531,35 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 376.0,
+						"translation.y": 270.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "htdocs/js/game.graphic.js",
+					"settings":
+					{
+						"buffer_size": 1653,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								570,
+								570
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 315.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -541,71 +569,15 @@
 					"file": "htdocs/coffee/game.ready.coffee",
 					"settings":
 					{
-						"buffer_size": 2099,
+						"buffer_size": 2167,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1901,
-								1901
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/CoffeeScript/CoffeeScript.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 1379.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 7,
-					"file": "htdocs/js/game.ready_orig.js",
-					"settings":
-					{
-						"buffer_size": 2126,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								476,
-								1791
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 1440.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 8,
-					"file": "htdocs/coffee/game.request.coffee",
-					"settings":
-					{
-						"buffer_size": 442,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								442,
-								442
+								254,
+								254
 							]
 						],
 						"settings":
