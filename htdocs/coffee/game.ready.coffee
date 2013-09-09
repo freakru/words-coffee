@@ -4,10 +4,7 @@ window.mainwords =
     'de':'durchsichtlichkeit,reißverschluss'
 
 window.isLocalStorageSupports = () ->
-  try
-    return 'localStorage' in window && window['localStorage'] != null
-  catch e
-    return false
+    return localStorage?
   
 
 
