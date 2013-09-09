@@ -29,7 +29,7 @@
       return setTimeout(callback, 200);
     };
     this.updateLevelBar = function(level, score, maxLevel, nextLevelCallback) {
-      var $levelBar, levelBarLen, maxLevelBarLen, scoreMuliplicator, scorePerLevel;
+      var $levelBar, animate, levelBarLen, maxLevelBarLen, scoreMuliplicator, scorePerLevel, t;
       if (level >= maxLevel) {
         return false;
       }
@@ -41,9 +41,16 @@
       if (score > scorePerLevel * level) {
         if (nextLevelCallback != null) {
           nextLevelCallback();
-          return $levelBar.addClass('notransition');
+          $levelBar.addClass('notransition');
         }
       }
+      $levelBar.css({
+        width: levelBarLen + 'px'
+      });
+      animate = function() {
+        return $levelBar.removeClass('notransition');
+      };
+      return t = setTimeout(animate, 700);
     };
   };
 

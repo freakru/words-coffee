@@ -38,4 +38,9 @@ window.Graphic = () ->
             if nextLevelCallback?
                 nextLevelCallback()
                 $levelBar.addClass('notransition')
+
+        $levelBar.css {width: levelBarLen + 'px'}
+        animate = () ->
+            $levelBar.removeClass('notransition')
+        t = setTimeout animate, 700
     return

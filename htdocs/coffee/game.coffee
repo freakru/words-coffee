@@ -225,7 +225,6 @@ window.Game = (lang, graphic, request) ->
           rawWeight = @lettersWeights[letter]
           weight = rawWeight / maxPercent
           @lettersWeights[letter] = maxLetterWeight - Math.ceil(maxLetterWeight * weight) + 1
-          #todo
 
     @populateUser = () ->
         $('#user').text "#{t.hallo} #{@userName}"
@@ -583,19 +582,19 @@ window.Game = (lang, graphic, request) ->
 
         @request.get {r: 'user/enter-username', username: username}, (data) =>
             if data.success
-                  @userId = data.userId
-                  @userName = data.userName
-                  @getMainword()
-                  @fillLettersWeights()
-                  @initAchievements()
-                  @initRareLetters()
+                @userId = data.userId
+                @userName = data.userName
+                @getMainword()
+                @fillLettersWeights()
+                @initAchievements()
+                @initRareLetters()
 
-                  @draw()
-                  @populateUser()
-                  @save()
-                  $('#modal').modal('hide')
-                  @setTimer()
-                  return
+                @draw()
+                @populateUser()
+                @save()
+                $('#modal').modal('hide')
+                @setTimer()
+                return
 
     @populateAnswers = () ->
         $('#answerContainer table tbody').empty()
